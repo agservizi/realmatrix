@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Allow direct access to backend/public if explicitly requested
+RewriteCond %{REQUEST_URI} ^backend/public/ [NC]
+RewriteRule ^ - [L]
+
+# Serve existing files/directories normally
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Forward everything else to backend/public
+RewriteRule ^ backend/public/$1 [L]
