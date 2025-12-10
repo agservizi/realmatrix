@@ -1,0 +1,10 @@
+.env
+vendor/
+node_modules/
+backend/storage/
+backend/storage/contratti/
+backend/storage/documenti/
+backend/storage/ratelimit/
+backend/storage/ratelimit_tests/
+backend/public/.htaccess
+.DS_Store
