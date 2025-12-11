@@ -5,7 +5,7 @@
   <div class="p-3">
     <h6 class="text-uppercase small">Menu</h6>
     <ul class="nav flex-column">
-      <li class="nav-item"><a class="nav-link" href="/public/dashboard.php">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link active" href="/public/index.php">Dashboard</a></li>
       <li class="nav-item"><a class="nav-link" href="/public/properties.php">Proprietà</a></li>
       <li class="nav-item"><a class="nav-link" href="/public/leads.php">Leads</a></li>
       <li class="nav-item"><a class="nav-link" href="/public/visits.php">Visite</a></li>
