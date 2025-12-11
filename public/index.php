@@ -15,8 +15,8 @@ $csrf = generate_csrf();
   <?php include __DIR__ . '/../includes/topbar.php'; ?>
   <?php include __DIR__ . '/../includes/sidebar.php'; ?>
 
-  <main style="margin-left:260px; padding-top:12px;">
-    <div class="container-fluid py-2">
+  <main style="margin-left:260px; padding-top:4px;">
+    <div class="container-fluid py-1">
       <section class="hero gradient-shell mb-4">
         <div>
           <div class="badge-soft">Smart Real Estate OS</div>
