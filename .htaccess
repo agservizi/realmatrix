@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# If the request is not already for /public and not an existing file/dir, route to /public
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
