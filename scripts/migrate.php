@@ -1,5 +1,5 @@
 <?php
-// Simple migration runner: php scripts/migrate.php
+// Simple migration runner: php scripts/migrate.php [--drop]
 
 spl_autoload_register(function ($class) {
     $prefix = 'App\\';
@@ -33,6 +33,21 @@ use App\Core\Database;
 
 $db = new Database($config);
 $pdo = $db->pdo();
+
+$drop = in_array('--drop', $argv, true);
+if ($drop) {
+    echo "!!! DROPPING existing tables (data loss) !!!\n";
+    $pdo->exec('SET FOREIGN_KEY_CHECKS=0');
+    $tables = [
+        'sharing_messages', 'sharing_requests', 'sharing_immobili',
+        'fatture', 'documenti', 'contratti', 'appuntamenti', 'lead',
+        'clienti', 'immobili', 'users', 'agencies'
+    ];
+    foreach ($tables as $t) {
+        $pdo->exec("DROP TABLE IF EXISTS `$t`");
+    }
+    $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
+}
 $schemaFile = __DIR__ . '/../database/schema.sql';
 if (!file_exists($schemaFile)) {
     echo "Schema file not found\n";
