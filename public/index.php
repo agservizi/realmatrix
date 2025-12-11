@@ -1,6 +1,27 @@
 <?php
 session_start();
 
+set_error_handler(function ($severity, $message, $file, $line) {
+    throw new \ErrorException($message, 0, $severity, $file, $line);
+});
+
+$logFile = __DIR__ . '/../storage/logs/app.log';
+if (!is_dir(dirname($logFile))) {
+    mkdir(dirname($logFile), 0775, true);
+}
+
+$handleException = function (\Throwable $e) use ($logFile) {
+    $line = '[' . date('Y-m-d H:i:s') . '] ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() . "\n";
+    file_put_contents($logFile, $line, FILE_APPEND);
+    $debug = ($_ENV['APP_DEBUG'] ?? getenv('APP_DEBUG')) === 'true' || ($_ENV['APP_DEBUG'] ?? getenv('APP_DEBUG')) === '1';
+    $msg = $debug ? $e->getMessage() : 'Internal Server Error';
+    http_response_code(500);
+    echo $msg;
+    exit;
+};
+
+set_exception_handler($handleException);
+
 spl_autoload_register(function ($class) {
     $prefix = 'App\\';
     $base_dir = __DIR__ . '/../app/';
@@ -47,7 +68,12 @@ if (file_exists($dotenv)) {
 }
 
 $config = require __DIR__ . '/../config/config.php';
-$db = new Database($config);
+try {
+    $db = new Database($config);
+} catch (\Throwable $e) {
+    throw new \RuntimeException('Database connection failed: ' . $e->getMessage(), 0, $e);
+}
+
 $jwt = new JWT($config);
 $authService = new Auth($db, $jwt);
 
