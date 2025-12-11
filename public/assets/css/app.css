@@ -1,0 +1,4 @@
+/* assets/css/app.css */
+body { background: #f8f9fa; }
+#sidebar .nav-link { color: #333; }
+#sidebar .nav-link:hover { color: #0d6efd; }
