@@ -79,8 +79,17 @@ $fattureCtrl = new FattureController($config, $db);
 $sharingCtrl = new HomeSharingController($config, $db);
 
 // UI routes
-$router->add('GET', '/', function () {
-    header('Location: /dashboard');
+$router->add('GET', '/', function () use ($authService) {
+    $headers = function_exists('getallheaders') ? (getallheaders() ?: []) : [];
+    $authHeader = $headers['Authorization'] ?? ($headers['authorization'] ?? '');
+    $bearer = str_starts_with($authHeader, 'Bearer ') ? substr($authHeader, 7) : '';
+    $token = $_COOKIE['rm_token'] ?? $bearer;
+    $user = $token ? $authService->validateToken($token) : null;
+    if ($user) {
+        header('Location: /dashboard');
+        return;
+    }
+    header('Location: /login');
 });
 $router->add('GET', '/login', function () {
     include __DIR__ . '/../views/login.php';

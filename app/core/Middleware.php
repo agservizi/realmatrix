@@ -24,6 +24,12 @@ class Middleware
                     return $next($request);
                 }
             }
+            $accept = $request['headers']['Accept'] ?? ($request['headers']['accept'] ?? '');
+            $wantsHtml = ($request['method'] ?? '') === 'GET' && str_contains($accept, 'text/html');
+            if ($wantsHtml) {
+                header('Location: /login');
+                return;
+            }
             Response::json(['error' => 'Unauthorized'], 401);
         };
     }
