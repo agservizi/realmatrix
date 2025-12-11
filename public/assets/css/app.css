@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
 	--bg: #f5f7fb;
@@ -16,7 +16,7 @@
 * { box-sizing: border-box; }
 
 body {
-	font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
 	background: linear-gradient(180deg, var(--bg), var(--bg-2));
 	color: var(--text);
 	min-height: 100vh;
@@ -26,10 +26,10 @@ body {
 a { color: var(--accent-2); text-decoration: none; }
 a:hover { color: var(--accent); }
 
-.navbar-dark.bg-dark {
-	background: #0f172a !important;
+.navbar-light.bg-white {
+	background: #ffffff !important;
 	border-bottom: 1px solid var(--stroke);
-	backdrop-filter: blur(6px);
+	box-shadow: var(--shadow);
 }
 
 .navbar-brand {

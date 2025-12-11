@@ -1,7 +1,7 @@
 <?php
 // includes/sidebar.php
 ?>
-<div id="sidebar" class="bg-light border-end" style="width:260px;min-height:100vh;position:fixed;top:56px;left:0;">
+<div id="sidebar" class="bg-light border-end" style="width:260px;min-height:100vh;position:fixed;top:0;left:0;padding-top:56px;">
   <div class="p-3">
     <h6 class="text-uppercase small">Menu</h6>
     <ul class="nav flex-column">

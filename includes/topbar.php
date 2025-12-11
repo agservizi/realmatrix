@@ -1,7 +1,7 @@
 <?php
 // includes/topbar.php
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom sticky-top" style="z-index:1040;">
   <div class="container-fluid">
     <a class="navbar-brand" href="/public/">DomusCore</a>
     <button class="btn btn-outline-light d-lg-none" id="sidebarToggleMobile">☰</button>
