@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - RealMatrix</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/public/assets/css/main.css">
 </head>
 <body class="has-background-light">
 <section class="section">
@@ -33,6 +33,6 @@
     </div>
   </div>
 </section>
-<script type="module" src="/assets/js/login.js"></script>
+<script type="module" src="/public/assets/js/login.js"></script>
 </body>
 </html>
