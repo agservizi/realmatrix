@@ -24,15 +24,18 @@ set_exception_handler($handleException);
 
 spl_autoload_register(function ($class) {
     $prefix = 'App\\';
-    $base_dir = __DIR__ . '/../app/';
     $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
         return;
     }
     $relative_class = substr($class, $len);
-    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-    if (file_exists($file)) {
-        require $file;
+    $baseDirs = [__DIR__ . '/../app/', __DIR__ . '/app/'];
+    foreach ($baseDirs as $base_dir) {
+        $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+        if (file_exists($file)) {
+            require $file;
+            return;
+        }
     }
 });
 
@@ -55,8 +58,11 @@ use App\Modules\Documenti\DocumentiController;
 use App\Modules\Fatture\FattureController;
 use App\Modules\HomeSharing\HomeSharingController;
 
-$dotenv = __DIR__ . '/../config/.env';
-if (file_exists($dotenv)) {
+$dotenvCandidates = [__DIR__ . '/../config/.env', __DIR__ . '/config/.env'];
+foreach ($dotenvCandidates as $dotenv) {
+    if (!file_exists($dotenv)) {
+        continue;
+    }
     foreach (file($dotenv, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
         if (str_starts_with(trim($line), '#')) {
             continue;
@@ -65,9 +71,13 @@ if (file_exists($dotenv)) {
         $_ENV[$key] = $value;
         putenv($key . '=' . $value);
     }
+    break;
 }
 
-$config = require __DIR__ . '/../config/config.php';
+$configPath = file_exists(__DIR__ . '/../config/config.php')
+    ? __DIR__ . '/../config/config.php'
+    : __DIR__ . '/config/config.php';
+$config = require $configPath;
 try {
     $db = new Database($config);
 } catch (\Throwable $e) {
