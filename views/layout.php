@@ -24,8 +24,14 @@ $csrf = hash_hmac('sha256', session_id(), $config['csrf']['secret'] ?? '');
         <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
         <li class="nav-item"><a class="nav-link" href="/immobili">Immobili</a></li>
         <li class="nav-item"><a class="nav-link" href="/clienti">Clienti</a></li>
+        <li class="nav-item"><a class="nav-link" href="/lead">Lead</a></li>
+        <li class="nav-item"><a class="nav-link" href="/appuntamenti">Appuntamenti</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contratti">Contratti</a></li>
+        <li class="nav-item"><a class="nav-link" href="/documenti">Documenti</a></li>
+        <li class="nav-item"><a class="nav-link" href="/fatture">Fatture</a></li>
         <li class="nav-item"><a class="nav-link" href="/collaboratori">Collaboratori</a></li>
         <li class="nav-item"><a class="nav-link" href="/sharing">Home Sharing</a></li>
+        <li class="nav-item"><a class="nav-link" href="/docs/api.html">API</a></li>
       </ul>
       <button id="logoutBtn" class="btn btn-outline-light">Logout</button>
     </div>
