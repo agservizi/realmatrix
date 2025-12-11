@@ -34,6 +34,6 @@
   <div id="activity-feed"></div>
 </div>
 <script type="module">
-import { loadDashboard } from '/assets/js/dashboard.js';
+import { loadDashboard } from '/public/assets/js/dashboard.js';
 loadDashboard();
 </script>

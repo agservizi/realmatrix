@@ -14,6 +14,6 @@
   <tbody></tbody>
 </table>
 <script type="module">
-import { initClienti } from '/assets/js/clienti.js';
+import { initClienti } from '/public/assets/js/clienti.js';
 initClienti();
 </script>

@@ -17,6 +17,6 @@
   <tbody></tbody>
 </table>
 <script type="module">
-import { initCollaboratori } from '/assets/js/collaboratori.js';
+import { initCollaboratori } from '/public/assets/js/collaboratori.js';
 initCollaboratori();
 </script>

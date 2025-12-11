@@ -41,6 +41,6 @@
   <tbody></tbody>
 </table>
 <script type="module">
-import { initImmobili } from '/assets/js/immobili.js';
+import { initImmobili } from '/public/assets/js/immobili.js';
 initImmobili();
 </script>

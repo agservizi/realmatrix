@@ -22,6 +22,6 @@
   </table>
 </div>
 <script type="module">
-import { initSharing } from '/assets/js/sharing.js';
+import { initSharing } from '/public/assets/js/sharing.js';
 initSharing();
 </script>
