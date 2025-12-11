@@ -16,6 +16,12 @@ require_once __DIR__ . '/../modules/Documenti/DocumentiController.php';
 require_once __DIR__ . '/../modules/HomeSharing/HomeSharingController.php';
 
 Env::load();
+
+// Force PHP error log into backend/storage/app.log for shared hosting visibility
+ini_set('log_errors', '1');
+ini_set('error_log', __DIR__ . '/../storage/app.log');
+error_reporting(E_ALL);
+
 $router = new Router();
 
 $agency = new AgencyController();
