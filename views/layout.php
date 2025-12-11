@@ -8,33 +8,35 @@ $csrf = hash_hmac('sha256', session_id(), $config['csrf']['secret'] ?? '');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RealMatrix</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/assets/css/main.css">
   <meta name="csrf-token" content="<?php echo htmlspecialchars($csrf, ENT_QUOTES); ?>">
 </head>
 <body>
-<nav class="navbar is-dark" role="navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/dashboard">RealMatrix</a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/dashboard">Dashboard</a>
-      <a class="navbar-item" href="/immobili">Immobili</a>
-      <a class="navbar-item" href="/clienti">Clienti</a>
-      <a class="navbar-item" href="/collaboratori">Collaboratori</a>
-      <a class="navbar-item" href="/sharing">Home Sharing</a>
-    </div>
-    <div class="navbar-end">
-      <div class="navbar-item"><button id="logoutBtn" class="button is-light">Logout</button></div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">RealMatrix</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="/immobili">Immobili</a></li>
+        <li class="nav-item"><a class="nav-link" href="/clienti">Clienti</a></li>
+        <li class="nav-item"><a class="nav-link" href="/collaboratori">Collaboratori</a></li>
+        <li class="nav-item"><a class="nav-link" href="/sharing">Home Sharing</a></li>
+      </ul>
+      <button id="logoutBtn" class="btn btn-outline-light">Logout</button>
     </div>
   </div>
 </nav>
-<section class="section">
+<main class="py-4">
   <div class="container">
     <?php include $templatePath; ?>
   </div>
-</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script type="module" src="/public/assets/js/main.js"></script>
 </body>
 </html>

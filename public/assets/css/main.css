@@ -1,2 +1,4 @@
 body { background: #f5f7fb; }
-#kpi-grid .box { min-height: 120px; }
+#kpi-grid .card { min-height: 120px; }
+.card { border-radius: 10px; }
+.navbar-brand { font-weight: 700; }
