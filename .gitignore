@@ -1,6 +1,7 @@
 .env
-vendor/
-node_modules/
-backend/storage/*
-!backend/storage/.gitkeep
+/vendor/
+/node_modules/
+/public/uploads/
+/.idea/
+/.vscode/
 .DS_Store

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>API RealMatrix</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body class="section">
+  <div class="container">
+    <h1 class="title">API v1</h1>
+    <p class="subtitle">Tutte le API sono sullo stesso dominio. Autenticazione JWT via header Authorization: Bearer &lt;token&gt;.</p>
+
+    <h2 class="title is-4">Auth</h2>
+    <ul>
+      <li>POST /api/v1/auth/login</li>
+      <li>GET /api/v1/auth/me</li>
+    </ul>
+
+    <h2 class="title is-4">Agenzia & Collaboratori</h2>
+    <ul>
+      <li>POST /api/v1/agency/register</li>
+      <li>POST /api/v1/collaborators</li>
+      <li>GET /api/v1/collaborators</li>
+      <li>PUT /api/v1/collaborators/{id}</li>
+      <li>DELETE /api/v1/collaborators/{id}</li>
+      <li>GET /api/v1/permissions</li>
+    </ul>
+
+    <h2 class="title is-4">Immobili</h2>
+    <ul>
+      <li>POST /api/v1/immobili</li>
+      <li>GET /api/v1/immobili</li>
+      <li>PUT /api/v1/immobili/{id}</li>
+      <li>DELETE /api/v1/immobili/{id}</li>
+    </ul>
+
+    <h2 class="title is-4">Clienti & Lead</h2>
+    <ul>
+      <li>POST /api/v1/clienti</li>
+      <li>GET /api/v1/clienti</li>
+      <li>PUT /api/v1/clienti/{id}</li>
+      <li>POST /api/v1/lead</li>
+      <li>GET /api/v1/lead</li>
+      <li>PUT /api/v1/lead/{id}</li>
+    </ul>
+
+    <h2 class="title is-4">Appuntamenti</h2>
+    <ul>
+      <li>POST /api/v1/appuntamenti</li>
+      <li>GET /api/v1/appuntamenti</li>
+      <li>PUT /api/v1/appuntamenti/{id}</li>
+    </ul>
+
+    <h2 class="title is-4">Contratti, Documenti, Fatture</h2>
+    <ul>
+      <li>POST /api/v1/contratti</li>
+      <li>GET /api/v1/contratti</li>
+      <li>POST /api/v1/documenti</li>
+      <li>GET /api/v1/documenti</li>
+      <li>POST /api/v1/fatture</li>
+      <li>GET /api/v1/fatture</li>
+    </ul>
+
+    <h2 class="title is-4">Home Sharing</h2>
+    <ul>
+      <li>GET /api/v1/sharing/immobili</li>
+      <li>POST /api/v1/sharing/immobili</li>
+      <li>GET /api/v1/sharing/agenzie</li>
+      <li>POST /api/v1/sharing/request</li>
+      <li>POST /api/v1/sharing/messages</li>
+      <li>GET /api/v1/sharing/messages?request_id=</li>
+    </ul>
+  </div>
+</body>
+</html>
