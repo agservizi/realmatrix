@@ -27,3 +27,13 @@ Stack: PHP 8 (pure) REST backend, MySQL/MariaDB, frontend HTML+JS+Bulma, JWT aut
 
 ## Frontend
 - UI Bulma, login, gestione collaboratori, dashboard filtrata dai permessi.
+
+## Deploy rapido su Hostinger (shared)
+1. Carica l'intero progetto in `public_html` (es. `public_html/realmatrix`).
+2. In quella cartella assicurati di avere due `.htaccess`:
+	- `public_html/realmatrix/.htaccess` con rewrite verso `backend/public` (già presente nel repo).
+	- `public_html/realmatrix/backend/public/.htaccess` con rewrite verso `index.php` (già presente nel repo).
+3. Permessi: cartelle `755`, file `644` (inclusi gli `.htaccess`).
+4. Imposta PHP 8.1/8.2 da hPanel; `mod_rewrite`/`AllowOverride` sono attivi su Premium.
+5. Se usi una sottocartella (es. `realmatrix`), l'URL sarà `https://tuodominio/realmatrix/` e il rewrite funzionerà comunque.
+6. Se vedi ancora 403, controlla i log errori su hPanel: se è “client denied by server configuration”, rivedi permessi/AllowOverride; se “File does not exist”, l'`.htaccess` non viene letto.
