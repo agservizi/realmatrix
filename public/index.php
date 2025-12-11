@@ -1,6 +1,24 @@
 <?php
 require_once __DIR__ . '/../includes/init.php';
 $csrf = generate_csrf();
+
+// metriche reali
+try {
+  $propertyCount = (int)$pdo->query("SELECT COUNT(*) FROM properties WHERE deleted_at IS NULL")->fetchColumn();
+  $leadCount = (int)$pdo->query("SELECT COUNT(*) FROM leads WHERE deleted_at IS NULL")->fetchColumn();
+  $availableCount = (int)$pdo->query("SELECT COUNT(*) FROM properties WHERE deleted_at IS NULL AND status = 'available'")->fetchColumn();
+  $soldCount = (int)$pdo->query("SELECT COUNT(*) FROM properties WHERE deleted_at IS NULL AND status = 'sold'")->fetchColumn();
+  $leadsToday = (int)$pdo->query("SELECT COUNT(*) FROM leads WHERE deleted_at IS NULL AND DATE(created_at) = CURRENT_DATE()")->fetchColumn();
+
+  $stmt = $pdo->query("SELECT id, title, city, price, status, main_image_path FROM properties WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT 5");
+  $recentProperties = $stmt->fetchAll();
+
+  $stmt2 = $pdo->query("SELECT id, name, email, phone, status, source, created_at FROM leads WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT 5");
+  $recentLeads = $stmt2->fetchAll();
+} catch (Exception $e) {
+  $propertyCount = $leadCount = $availableCount = $soldCount = $leadsToday = 0;
+  $recentProperties = $recentLeads = [];
+}
 ?>
 <!doctype html>
 <html lang="it">
@@ -35,35 +53,35 @@ $csrf = generate_csrf();
           <div class="card metric-card">
             <div class="card-body">
               <div class="metric-label">Proprietà attive</div>
-              <div class="metric-value">128</div>
-              <div class="metric-trend text-success">+12% vs mese scorso</div>
+              <div class="metric-value"><?php echo $propertyCount; ?></div>
+              <div class="metric-trend text-success">Disponibili</div>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 col-xl-3">
           <div class="card metric-card">
             <div class="card-body">
-              <div class="metric-label">Lead aperti</div>
-              <div class="metric-value">46</div>
-              <div class="metric-trend text-warning">In follow-up</div>
+              <div class="metric-label">Lead totali</div>
+              <div class="metric-value"><?php echo $leadCount; ?></div>
+              <div class="metric-trend text-info">Oggi: <?php echo $leadsToday; ?></div>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 col-xl-3">
           <div class="card metric-card">
             <div class="card-body">
-              <div class="metric-label">Visite pianificate</div>
-              <div class="metric-value">23</div>
-              <div class="metric-trend text-info">Oggi +5</div>
+              <div class="metric-label">Disponibili</div>
+              <div class="metric-value"><?php echo $availableCount; ?></div>
+              <div class="metric-trend text-muted">Stato available</div>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 col-xl-3">
           <div class="card metric-card">
             <div class="card-body">
-              <div class="metric-label">Fatturato YTD</div>
-              <div class="metric-value">€ 1.24M</div>
-              <div class="metric-trend text-success">+8.4% YoY</div>
+              <div class="metric-label">Vendute</div>
+              <div class="metric-value"><?php echo $soldCount; ?></div>
+              <div class="metric-trend text-muted">Stato sold</div>
             </div>
           </div>
         </div>
@@ -78,27 +96,19 @@ $csrf = generate_csrf();
             </div>
             <div class="card-body">
               <div class="list-group list-group-flush glass-list">
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                  <div>
-                    <div class="fw-semibold">Attico Piazza Navona</div>
-                    <div class="text-muted small">Roma • € 1.2M • In trattativa</div>
-                  </div>
-                  <span class="badge bg-success-subtle text-success">Hot</span>
-                </div>
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                  <div>
-                    <div class="fw-semibold">Loft Brera</div>
-                    <div class="text-muted small">Milano • € 850k • Visite in corso</div>
-                  </div>
-                  <span class="badge bg-info-subtle text-info">Visite</span>
-                </div>
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                  <div>
-                    <div class="fw-semibold">Villa Posillipo</div>
-                    <div class="text-muted small">Napoli • € 2.4M • Nuovo</div>
-                  </div>
-                  <span class="badge bg-primary-subtle text-primary">Nuovo</span>
-                </div>
+                <?php if ($recentProperties): ?>
+                  <?php foreach ($recentProperties as $prop): ?>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <div class="fw-semibold"><?php echo htmlspecialchars($prop['title']); ?></div>
+                        <div class="text-muted small"><?php echo htmlspecialchars($prop['city']); ?> • € <?php echo number_format((float)$prop['price'], 0, ',', '.'); ?> • <?php echo htmlspecialchars($prop['status']); ?></div>
+                      </div>
+                      <span class="badge bg-info-subtle text-info"><?php echo htmlspecialchars($prop['status']); ?></span>
+                    </div>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <div class="list-group-item text-muted small">Nessuna proprietà recente</div>
+                <?php endif; ?>
               </div>
             </div>
           </div>
@@ -110,11 +120,26 @@ $csrf = generate_csrf();
               <span class="text-muted small">Team</span>
             </div>
             <div class="card-body">
-              <div class="d-grid gap-2">
+              <div class="d-grid gap-2 mb-3">
                 <a class="btn btn-primary w-100" href="/public/properties.php">Crea annuncio</a>
                 <a class="btn btn-outline-light w-100" href="/public/leads.php">Importa lead</a>
                 <a class="btn btn-outline-light w-100" href="/public/visits.php">Pianifica visita</a>
                 <a class="btn btn-outline-light w-100" href="/public/analytics.php">Apri analytics</a>
+              </div>
+              <div class="list-group list-group-flush">
+                <?php if ($recentLeads): ?>
+                  <?php foreach ($recentLeads as $lead): ?>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <div class="fw-semibold"><?php echo htmlspecialchars($lead['name']); ?></div>
+                        <div class="text-muted small"><?php echo htmlspecialchars($lead['email'] ?: $lead['phone']); ?> • <?php echo htmlspecialchars($lead['source']); ?></div>
+                      </div>
+                      <span class="badge bg-primary-subtle text-primary"><?php echo htmlspecialchars($lead['status']); ?></span>
+                    </div>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <div class="list-group-item text-muted small">Nessun lead recente</div>
+                <?php endif; ?>
               </div>
             </div>
           </div>
