@@ -1,3 +1,4 @@
+@import url('/public/assets/vendor/bootstrap.min.css');
 body { background: #f5f7fb; }
 #kpi-grid .card { min-height: 120px; }
 .card { border-radius: 10px; }
