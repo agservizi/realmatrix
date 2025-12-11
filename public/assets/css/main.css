@@ -1,2 +1,26 @@
 body { background: #f5f7fb; }
+:root { --nav-height: 60px; }
+.topbar {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	min-height: var(--nav-height);
+}
+.layout-shell {
+	display: flex;
+	gap: 1rem;
+	padding-top: 1rem;
+}
+.sidebar {
+	width: 220px;
+	position: sticky;
+	top: calc(var(--nav-height) + 8px);
+	align-self: flex-start;
+	max-height: calc(100vh - var(--nav-height) - 16px);
+	overflow-y: auto;
+}
+.main-panel {
+	flex: 1;
+	min-width: 0;
+}
 #kpi-grid .box { min-height: 120px; }
